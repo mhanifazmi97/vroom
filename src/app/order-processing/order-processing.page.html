@@ -1,0 +1,326 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Booking Summary</ion-title>
+		<ion-buttons slot="start">
+			<!--
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+			-->
+			<ion-button color="primary" (click)="back()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding back-grey">
+	<div class="action-box">
+		<div class="action-box-title mb-10">
+			<div class="action-box-title-text">
+				<p class="p-18 fw-bold">{{order.order_type=='parcel'?'Express Delivery':'Express Valet'}}</p>
+			</div>
+		</div>
+		<div class="action-input-box">
+			<div class="action-in-wrap pickup-field">
+				<ion-row>
+					<ion-col size="2">
+						<div class="ico-pickup"></div>
+					</ion-col>
+					<ion-col size="10">
+						<p class="p-14">{{order.order_type=='parcel'?'Sender Details':'Pick Up Location'}}</p>
+						<p class="p-12 f-s">{{order.pickup_address}}<span *ngIf="order.order_type=='parcel' && order.pickup_unit_number">{{order.pickup_unit_number}}</span></p>
+					</ion-col>
+				</ion-row>
+			</div>
+			<ng-container *ngFor="let dropoff of order.recipient_list; let i = index">
+				<div class="action-in-wrap dropoff-field">
+					<ion-row>
+						<ion-col size="2">
+							<div class="ico-dropoff"></div>
+						</ion-col>
+						<ion-col size="10">
+							<p class="p-14">
+								{{order.order_type=='parcel'?'Recipient Details':'Drop Off Location'}}
+								<span *ngIf="order.recipient_list.length > 1">{{i+1}}</span>
+							</p>
+							<p class="p-12 f-s">
+								{{dropoff.recipient_address}}
+								<span *ngIf="order.order_type=='parcel' && dropoff.recipient_unit_number">{{dropoff.recipient_unit_number}}</span>
+							</p>
+						</ion-col>
+					</ion-row>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+	<ion-grid class="ion-no-padding" style="margin-top: 20px" *ngIf="order.icon">
+		<ion-row>
+			<ion-col size="6">
+				<p class="p-16 fw-bold">Vehicle</p>
+			</ion-col>
+			<ion-col size="6">
+				<ion-row>
+					<ion-col size="9">
+						<ion-img [src]="'data:image/png;base64,' + order.icon" style="width: 30%; float: right" *ngIf="order.icon"></ion-img>
+					</ion-col>
+					<ion-col size="3" class="ion-text-end">
+						<p class="p-16 fw-bold">{{order.type_of_vehicle_id}}</p>
+					</ion-col>
+				</ion-row>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<div class="reinfo-box pb-0" *ngIf="order.vehicle_plate_number">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-title">
+						<p class="p-16 fw-bold">Vehicle Information</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-box-list">
+						<ion-row class="ion-no-padding">
+							<ion-col size="5" class="ion-no-padding">
+								<p class="p-14">Number Plate</p>
+							</ion-col>
+							<ion-col size="7" class="ion-text-end ion-no-padding">
+								<p class="p-14">{{order.vehicle_plate_number}}</p>
+							</ion-col>
+						</ion-row>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="reinfo-box-list">
+						<div class="refinfo-con">
+							<p class="p-14">Vehicle Transmission</p>
+						</div>
+						<div class="refinfo-con ion-text-end">
+							<p class="p-14">{{order.vehicle_transmission}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="reinfo-box pb-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<p class="p-16 fw-bold">{{order.order_type=='parcel'?'Sender Information':'Contact Details'}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12" *ngIf="order.merchant_name">
+					<div class="reinfo-box-list">
+						<ion-row class="ion-no-padding">
+							<ion-col size="5" class="ion-no-padding">
+								<p class="p-14">Name</p>
+							</ion-col>
+							<ion-col size="7" class="ion-text-end ion-no-padding">
+								<p class="p-14">{{order.merchant_name}}</p>
+							</ion-col>
+						</ion-row>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="reinfo-box-list">
+						<ion-row class="ion-no-padding">
+							<ion-col size="5" class="ion-no-padding">
+								<p class="p-14">Phone Number</p>
+							</ion-col>
+							<ion-col size="7" class="ion-text-end ion-no-padding">
+								<p class="p-14">{{order.pickup_contact}}</p>
+							</ion-col>
+						</ion-row>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="order.order_type=='parcel'">
+		<ng-container *ngFor="let dropoff of order.recipient_list; let i = index">
+			<div class="reinfo-box pb-0">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="reinfo-title">
+								<p class="p-16 fw-bold">
+									Recipient Information
+									<span *ngIf="order.recipient_list.length > 1">{{i+1}}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12" *ngIf="dropoff.recipient_name">
+							<div class="reinfo-box-list">
+								<ion-row class="ion-no-padding">
+									<ion-col size="5" class="ion-no-padding">
+										<p class="p-14">Name</p>
+									</ion-col>
+									<ion-col size="7" class="ion-text-end ion-no-padding">
+										<p class="p-14">{{dropoff.recipient_name}}</p>
+									</ion-col>
+								</ion-row>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="reinfo-box-list">
+								<ion-row class="ion-no-padding">
+									<ion-col size="5" class="ion-no-padding">
+										<p class="p-14">Phone Number</p>
+									</ion-col>
+									<ion-col size="7" class="ion-text-end ion-no-padding">
+										<p class="p-14">{{dropoff.recipient_phone}}</p>
+									</ion-col>
+								</ion-row>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+
+	<div class="reinfo-box pb-0" *ngIf="order.package_type">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-title">
+						<p class="p-16 fw-bold">Package Information</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-box-list">
+						<div class="refinfo-con">
+							<p class="p-14">Type of package</p>
+						</div>
+						<div class="refinfo-con ion-text-end">
+							<p class="p-14">{{order.package_type}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="reinfo-box pb-0" *ngIf="order.delivery_distance">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-title">
+						<p class="p-16 fw-bold">Total Distance</p>
+					</div>
+				</div>
+			</div>
+			<ion-row>
+				<ion-col size="8">
+					<div class="reinfo-box-list">
+						<p class="p-14">{{order.delivery_distance}} KM</p>
+					</div>
+				</ion-col>
+				<ion-col size="4" class="ion-text-end">
+					<div class="reinfo-box-list">
+						<p class="p-14">${{order.deliveryPrice | number : '1.2-2'}}</p>
+					</div>
+				</ion-col>
+			</ion-row>
+		</div>
+	</div>
+	<div class="row" *ngIf="order.surcharge?.length > 0 ">
+		<div class="col-12">
+			<div class="reinfo-box-list">
+				<div class="refinfo-con">
+					<p class="p-16 fw-bold">Surcharges</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ng-container *ngIf="order.surcharge?.length != 0 ">
+		<div class="row" *ngFor="let surcharge of order.surcharge">
+			<div class="col-12">
+				<div class="reinfo-box-list">
+					<div class="refinfo-con">
+						<p class="p-16">{{surcharge.type}}</p>
+					</div>
+					<div class="refinfo-con ion-text-end">
+						<p class="p-16">${{surcharge.amount | number : '1.2-2'}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<div class="row">
+		<div class="col-12">
+			<div class="reinfo-box-list">
+				<div class="refinfo-con">
+					<p class="p-16 fw-bold">Total</p>
+				</div>
+				<div class="refinfo-con ion-text-end">
+					<p class="p-16 fw-bold">
+						${{order.charge_amount | number : '1.2-2'}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="reinfo-box pb-0" *ngIf="order.remarks">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-title">
+						<p class="p-16 fw-bold">Remarks to Driver</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<p class="p-14">{{order.remarks}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="reinfo-box pb-0" id="tabs" *ngIf="order.state == 'Pending Payment'">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="reinfo-title">
+						<p class="p-16 fw-bold">Mode Of Payment</p>
+					</div>
+				</div>
+			</div>
+			<ion-segment scrollable [(ngModel)]="payment_method">
+				<ion-segment-button value="cash">
+					<ion-label color="gold">Cash</ion-label>
+				</ion-segment-button>
+				<ion-segment-button value="credit">
+					<ion-label color="gold">Credit Card</ion-label>
+				</ion-segment-button>
+				<ion-segment-button value="wallet" [disabled]="globalVars.credit<order.charge_amount">
+					<ion-label color="gold">My Wallet</ion-label>
+				</ion-segment-button>
+			</ion-segment>
+		</div>
+	</div>
+
+	<div class="reinfo-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<ion-button [disabled]="processing" (click)="cancelOrder()" *ngIf="order.state == 'Pending Payment' || order.state !== 'Picked Up'" color="danger" expand="block">Cancel Order</ion-button>
+					<ion-button [disabled]="processing" (click)="pay()" *ngIf="order.state == 'Pending Payment'" color="success" expand="block">Pay</ion-button>
+				</div>
+			</div>
+		</div>
+	</div>
+</ion-content>

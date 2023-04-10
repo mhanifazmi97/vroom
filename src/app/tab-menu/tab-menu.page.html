@@ -1,0 +1,140 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-img
+            slot="start"
+            src="assets/logo.png"
+            style="height: 50px; margin-left: 20px"
+        ></ion-img>
+    </ion-toolbar>
+</ion-header>
+<div
+    class="alert"
+    style="display: inline-block"
+    *ngIf="globalVars.profile && !globalVars.profile.email_verified"
+>
+    <ion-icon name="alert-circle" color="warning"></ion-icon
+    ><span class="p-14"> Verify your email account.</span>
+    <span
+        class="p-14"
+        style="color: green; font-weight: 900"
+        (click)="sendVerificationEmail()"
+        >Send Verification Email</span
+    >
+</div>
+<ion-content class="ion-padding">
+    <div class="row">
+        <div
+            class="col-12 mb-10"
+            routerLink="/profile"
+            routerDirection="forward"
+        >
+            <div class="acc-pp-box">
+                <div class="list-ico-box">
+                    <ion-avatar class="image-center">
+                        <img
+                            [src]="globalVars.profile.profile_picture?'data:image/jpg;base64,'+globalVars.profile.profile_picture:'assets/dp-default.svg'"
+                        />
+                    </ion-avatar>
+                </div>
+                <div class="list-desc-text">
+                    <p class="title-20">{{globalVars.profile.name}}</p>
+                    <p class="p-16 f-s mb-5">{{globalVars.profile.email}}</p>
+                </div>
+                <div class="list-obj-abslt-middle">
+                    <div class="ico-arrow-right-silver"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mb-30">
+            <div class="wallet-box">
+                <div class="mywallet-box">
+                    <p class="p-14 f-w mb-0">My wallet</p>
+                    <p class="p-25 f-w">${{globalVars.profile.wallet}}</p>
+                </div>
+                <div class="mywallet-action">
+                    <div
+                        class="mywallet-action-box"
+                        routerLink="/top-up"
+                        routerDirection="forward"
+                    >
+                        <div class="ico-topup m-auto-auto mb-5"></div>
+                        <p class="p-12 fw-bold f-w">Top up</p>
+                    </div>
+                    <div
+                        class="mywallet-action-box"
+                        class="mywallet-action-box"
+                        routerLink="/transactions"
+                        routerDirection="forward"
+                    >
+                        <div class="ico-transaction m-auto-auto mb-5"></div>
+                        <p class="p-12 fw-bold f-w">Transaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="title-list">
+                <p class="title-20">General</p>
+            </div>
+
+            <div
+                class="list-link"
+                routerLink="/password"
+                routerDirection="forward"
+            >
+                <div class="acc-ico-list">
+                    <div class="ico-change-password"></div>
+                </div>
+                <div class="acc-text-list">
+                    <p class="p-20">Change Password</p>
+                </div>
+                <div class="acc-arrow-list">
+                    <div class="ico-arrow-right-silver-2"></div>
+                </div>
+            </div>
+
+            <div
+                class="list-link"
+                routerLink="/profile"
+                routerDirection="forward"
+            >
+                <div class="acc-ico-list">
+                    <div class="ico-account-active"></div>
+                </div>
+                <div class="acc-text-list">
+                    <p class="p-20">Delete Account</p>
+                </div>
+                <div class="acc-arrow-list">
+                    <div class="ico-arrow-right-silver-2"></div>
+                </div>
+            </div>
+
+            <a href="tel:+6565386800">
+                <div class="list-link">
+                    <div class="acc-ico-list">
+                        <div class="ico-contact"></div>
+                    </div>
+                    <div class="acc-text-list">
+                        <p class="p-20">Contact us</p>
+                    </div>
+                    <div class="acc-arrow-list">
+                        <div class="ico-arrow-right-silver-2"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12" (click)="logout()">
+            <div class="acc-signout">
+                <p class="acc-signout">Sign out</p>
+            </div>
+        </div>
+    </div>
+</ion-content>
+<ion-footer *ngIf="version">
+    <ion-toolbar>
+        <ion-title>App Version: {{version}}</ion-title>
+    </ion-toolbar>
+</ion-footer>

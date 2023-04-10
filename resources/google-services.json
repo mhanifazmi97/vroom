@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "242647299263",
+    "project_id": "jj-express-d2664",
+    "storage_bucket": "jj-express-d2664.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242647299263:android:9e637bdec53d08bae6c20a",
+        "android_client_info": {
+          "package_name": "jj.expres.lma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242647299263-8ajhtfve4kqun3njnflml663j0qdleh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-YpjhnnYYqrjwsrEzBRkLnFC6gmeeFgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242647299263-8ajhtfve4kqun3njnflml663j0qdleh1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "242647299263-2mfffsbv0bgoob600vp6u1rtese1offq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "jj.express"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242647299263:android:8ecf3c45980b8ed9e6c20a",
+        "android_client_info": {
+          "package_name": "jj.express.ca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242647299263-8ajhtfve4kqun3njnflml663j0qdleh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-YpjhnnYYqrjwsrEzBRkLnFC6gmeeFgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242647299263-8ajhtfve4kqun3njnflml663j0qdleh1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "242647299263-2mfffsbv0bgoob600vp6u1rtese1offq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "jj.express"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

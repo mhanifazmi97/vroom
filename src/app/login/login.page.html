@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+    <div class="ion-text-center ion-padding">
+        <img src="assets/logo.png" class="logo" />
+        <span *ngIf="!production"></span>
+    </div>
+
+    <div class="ion-padding-bottom ion-padding-top">
+        <ion-label>Email address or phone number</ion-label>
+        <ion-item class="ion-no-padding" class="rounded" lines="none">
+            <ion-input
+                size="small"
+                type="email"
+                [(ngModel)]="email_address"
+                [maxlength]="maxlength"
+            ></ion-input>
+        </ion-item>
+    </div>
+    <div class="ion-padding-bottom">
+        <ion-label>Password</ion-label>
+        <ion-item class="ion-no-padding" class="rounded" lines="none">
+            <ion-input
+                type="password"
+                [(ngModel)]="user_password"
+                [maxlength]="maxlength"
+            ></ion-input>
+        </ion-item>
+    </div>
+    <div class="ion-text-right ion-padding-bottom">
+        <ion-label
+            color="gold"
+            routerLink="/forget-password"
+            routerDirection="forward"
+            >Forgot password</ion-label
+        >
+    </div>
+    <div class="ion-text-center ion-padding-top">
+        <ion-button color="gold" expand="block" (click)="signin()"
+            >Login</ion-button
+        >
+        <br />
+        <ion-label color="gold" routerLink="/signup" routerDirection="forward"
+            >Create account</ion-label
+        >
+    </div>
+    <div class="ion-text-center" *ngIf="fingerprint_authentication">
+        <br /><br />
+        <ion-label color="primary" (click)="bio_signin()"
+            ><ion-icon name="finger-print"></ion-icon> Use Biometric</ion-label
+        >
+    </div>
+</ion-content>

@@ -1,0 +1,340 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Booking Summary</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button text="" icon="arrow-back"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-chip
+      *ngIf="!globalVars.order_detail.is_feedback_received"
+      slot="end"
+      routerDirection="forward"
+      routerLink="/service-feedback"
+      >Tip</ion-chip
+    > -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding back-grey">
+  <div class="action-box">
+    <div class="action-box-title mb-10">
+      <div class="action-box-title-text">
+        <p class="p-18 fw-bold">
+          {{globalVars.order_detail.order_type=='parcel'?'Express
+          Delivery':'Express Valet'}}
+        </p>
+      </div>
+    </div>
+    <div class="action-input-box">
+      <div class="action-in-wrap pickup-field">
+        <ion-row>
+          <ion-col size="2">
+            <div class="ico-pickup"></div>
+          </ion-col>
+          <ion-col size="10">
+            <p class="p-14">
+              {{globalVars.order_detail.order_type=='parcel'?'Sender
+              Details':'Pick Up Location'}}
+            </p>
+            <p class="p-12 f-s">
+              {{globalVars.order_detail.pickup_address}}<span
+                *ngIf="globalVars.order_detail.order_type=='parcel' && globalVars.order_detail.pickup_unit_number"
+              >
+                {{globalVars.order_detail.pickup_unit_number}}</span
+              >
+            </p>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ng-container
+        *ngFor="let dropoff of globalVars.order_detail.recipients; let i = index"
+      >
+        <div class="action-in-wrap dropoff-field">
+          <ion-row>
+            <ion-col size="2">
+              <div class="ico-dropoff"></div>
+            </ion-col>
+            <ion-col size="10">
+              <p class="p-14">
+                {{globalVars.order_detail.order_type=='parcel'?'Recipient
+                Details':'Drop Off Location'}}
+                <span *ngIf="globalVars.order_detail.recipients.length > 1"
+                  >{{i+1}}</span
+                >
+              </p>
+              <p class="p-12 f-s">
+                {{dropoff.recipient_address}}<span
+                  *ngIf="globalVars.order_detail.order_type=='parcel' && dropoff.recipient_unit_number"
+                >
+                  {{dropoff.recipient_unit_number}}</span
+                >
+              </p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <ion-grid
+    class="ion-no-padding"
+    style="margin-top: 20px"
+    *ngIf="globalVars.order_detail.order_type=='parcel'"
+  >
+    <ion-row>
+      <ion-col size="6">
+        <p class="p-16 fw-bold">Vehicle</p>
+      </ion-col>
+      <ion-col size="6">
+        <p class="p-16 fw-bold" style="float: right; padding-top: 8px">
+          &nbsp;&nbsp;&nbsp;{{globalVars.order_detail.type_of_vehicle_id}}
+        </p>
+        <ion-img
+          [src]="globalVars.order_detail.icon"
+          style="width: 23%; float: right"
+          *ngIf="globalVars.order_detail.order_type=='parcel' && globalVars.order_detail.icon"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div
+    class="reinfo-box pb-0"
+    *ngIf="globalVars.order_detail.order_type=='valet'"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-title">
+            <p class="p-16 fw-bold">Vehicle Information</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-box-list">
+            <ion-row class="ion-no-padding">
+              <ion-col size="5" class="ion-no-padding">
+                <p class="p-14">Number Plate</p>
+              </ion-col>
+              <ion-col size="7" class="ion-text-end ion-no-padding">
+                <p class="p-14">
+                  {{globalVars.order_detail.vehicle_plate_number}}
+                </p>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="reinfo-box-list">
+            <div class="refinfo-con">
+              <p class="p-14">Vehicle Transmission</p>
+            </div>
+            <div class="refinfo-con ion-text-end">
+              <p class="p-14">
+                {{globalVars.order_detail.vehicle_transmission}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reinfo-box pb-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p class="p-16 fw-bold">
+            {{globalVars.order_detail.order_type=='parcel'?'Sender
+            Information':'Contact Details'}}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-box-list">
+            <ion-row class="ion-no-padding">
+              <ion-col size="5" class="ion-no-padding">
+                <p class="p-14">Name</p>
+              </ion-col>
+              <ion-col size="7" class="ion-text-end ion-no-padding">
+                <p class="p-14">{{globalVars.order_detail.pickup_name}}</p>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="reinfo-box-list">
+            <ion-row class="ion-no-padding">
+              <ion-col size="5" class="ion-no-padding">
+                <p class="p-14">Phone Number</p>
+              </ion-col>
+              <ion-col size="7" class="ion-text-end ion-no-padding">
+                <p class="p-14">{{globalVars.order_detail.pickup_contact}}</p>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="globalVars.order_detail.order_type=='parcel'">
+    <ng-container
+      *ngFor="let dropoff of globalVars.order_detail.recipients; let i = index"
+    >
+      <div class="reinfo-box pb-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="reinfo-title">
+                <p class="p-16 fw-bold">
+                  Recipient Information
+                  <span *ngIf="globalVars.order_detail.recipients.length > 1"
+                    >{{i+1}}</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="reinfo-box-list">
+                <ion-row class="ion-no-padding">
+                  <ion-col size="5" class="ion-no-padding">
+                    <p class="p-14">Name</p>
+                  </ion-col>
+                  <ion-col size="7" class="ion-text-end ion-no-padding">
+                    <p class="p-14">{{dropoff.recipient_name}}</p>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="reinfo-box-list">
+                <ion-row class="ion-no-padding">
+                  <ion-col size="5" class="ion-no-padding">
+                    <p class="p-14">Phone Number</p>
+                  </ion-col>
+                  <ion-col size="7" class="ion-text-end ion-no-padding">
+                    <p class="p-14">{{dropoff.recipient_phone}}</p>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="reinfo-box pb-0" *ngIf="globalVars.order_detail.package_type">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-title">
+            <p class="p-16 fw-bold">Package Information</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-box-list">
+            <div class="refinfo-con">
+              <p class="p-14">Type of package</p>
+            </div>
+            <div class="refinfo-con ion-text-end">
+              <p class="p-14">{{globalVars.order_detail.package_type}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="reinfo-box pb-0"
+    *ngIf="globalVars.order_detail.delivery_distance"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-title">
+            <p class="p-16 fw-bold">Total Distance</p>
+          </div>
+        </div>
+      </div>
+      <ion-row>
+        <ion-col size="8">
+          <div class="reinfo-box-list">
+            <p class="p-14">{{globalVars.order_detail.delivery_distance}} KM</p>
+          </div>
+        </ion-col>
+        <ion-col size="4" class="ion-text-end">
+          <div class="reinfo-box-list">
+            <p class="p-14">
+              ${{globalVars.order_detail.deliveryPrice | number : '1.2-2'}}
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div class="row" *ngIf="globalVars.order_detail.surcharge?.length > 0 ">
+    <div class="col-12">
+      <div class="reinfo-box-list">
+        <div class="refinfo-con">
+          <p class="p-16 fw-bold">Surcharges</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="globalVars.order_detail.surcharge?.length != 0 ">
+    <div
+      class="row"
+      *ngFor="let surcharge of globalVars.order_detail.surcharge"
+    >
+      <div class="col-12">
+        <div class="reinfo-box-list">
+          <div class="refinfo-con">
+            <p class="p-16">{{surcharge.type }}</p>
+          </div>
+          <div class="refinfo-con ion-text-end">
+            <p class="p-16">${{surcharge.amount | number : '1.2-2'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="row">
+    <div class="col-12">
+      <div class="reinfo-box-list">
+        <div class="refinfo-con">
+          <p class="p-16 fw-bold">Total</p>
+        </div>
+        <div class="refinfo-con ion-text-end">
+          <p class="p-16 fw-bold">
+            ${{globalVars.order_detail.charge_amount | number : '1.2-2'}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reinfo-box pb-0" *ngIf="globalVars.order_detail.remarks">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="reinfo-title">
+            <p class="p-16 fw-bold">Remarks to Driver</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="p-14">{{globalVars.order_detail.remarks}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

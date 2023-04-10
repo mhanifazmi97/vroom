@@ -1,0 +1,127 @@
+<ion-header *ngIf="view=='profile'">
+	<ion-toolbar>
+		<ion-title>Profile</ion-title>
+		<ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+	<form [formGroup]="form" class="ion-padding-bottom ion-padding-top" *ngIf="!load && view=='profile'">
+		<ion-avatar class="image-center" (click)="openCamera()">
+			<img [src]="profile_picture?'data:image/jpg;base64,'+ profile_picture:'assets/dp-default.svg'">
+		</ion-avatar>
+		<ion-card>
+			<ion-card-header>
+				<ion-card-title>Personal Information</ion-card-title>
+			</ion-card-header>
+			<ion-card-content>
+				<ion-list>
+					<ion-item>
+						<ion-label position="floating">Name</ion-label>
+						<ion-input type="text" formControlName="name"></ion-input>
+					</ion-item>
+					<div *ngFor="let error of errorMessages.name">
+						<ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label position="floating">Email</ion-label>
+						<ion-input type="email" formControlName="email" (ionBlur)="checkUnique('email')"></ion-input>
+					</ion-item>
+					<div *ngFor="let error of errorMessages.email">
+						<ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label position="floating">Phone Number</ion-label>
+						<ion-input type="text" formControlName="mobile" maxlength="8" (ionBlur)="checkUnique('phone')"></ion-input>
+						
+					</ion-item>
+					<div *ngFor="let error of errorMessages.mobile">
+						<ng-container *ngIf="mobile.hasError(error.type) && (mobile.dirty || mobile.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label position="floating">Postal Code</ion-label>
+						<ion-input type="text" formControlName="postal_code" maxlength="6"></ion-input>
+					</ion-item>
+					<div *ngFor="let error of errorMessages.postal_code">
+						<ng-container *ngIf="postal_code.hasError(error.type) && (postal_code.dirty || postal_code.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label position="floating">Address</ion-label>
+						<ion-textarea rows="3" formControlName="address"></ion-textarea>
+					</ion-item>
+					<div *ngFor="let error of errorMessages.address">
+						<ng-container *ngIf="address.hasError(error.type) && (address.dirty || address.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label position="floating">Unit Number</ion-label>
+						<ion-input type="text" formControlName="unit_number"></ion-input>
+					</ion-item>
+				</ion-list>
+			</ion-card-content>
+		</ion-card>
+	</form>
+	<div class="ion-text-center ion-padding-top" *ngIf="!load && view=='profile'">
+		<ion-button *ngIf="!load" color="gold" expand="block" (click)="otp()" [disabled]="!form.valid">Save Changes</ion-button>
+	</div>
+	<div class="ion-text-center ion-padding-top" *ngIf="!load && view=='profile'">
+		<ion-button  color="danger" expand="block" (click)="deleteaccount()" >Delete Account</ion-button>
+	</div>
+	<div id="container" *ngIf="load || view=='otp'">
+		<ion-card *ngIf="!load && view=='otp'">
+			<ion-card-content>
+				<ion-row>
+					<ion-col size="12">
+						<p class="p-14 ion-text-center">Please enter one time verification code sent to {{mobile.value}}</p>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="12">
+						<ion-item class="ion-no-padding">
+							<ion-input type="tel" (ionChange)="otp_verify()" [(ngModel)]="otpfullvalue" #otpfull maxLength="6" (keypress)="numberOnlyValidation($event)" class="otp ion-text-center"></ion-input>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="12">
+						<p class="p-14 error-message ion-text-center" *ngIf="otpVerifyFail" style="margin-bottom:15px;">
+							<ion-icon name="alert-circle-outline"></ion-icon>
+							<span>The OTP you've entered is incorrect. Please try again.</span>
+						</p>
+						<p class="p-14 ion-text-center">Didn't get OTP? <span class="p-14" style="color:blue;margin-left:10px;" *ngIf="!load && counter==0" (click)="otp()">Resend OTP</span><span class="p-14 f-s" *ngIf="!load && counter>0">Resend in {{counter}} second{{(counter>1?'s':'')}}</span></p>
+						<p (click)="otp_close()" class="p-14 ion-text-center" style="color:blue;margin-top:20px">Close</p>
+					</ion-col>
+				</ion-row>
+			</ion-card-content>
+		</ion-card>
+		<ion-spinner name="circles" *ngIf="load"></ion-spinner>
+		<p *ngIf="load">Saving, please wait...</p>
+	</div>
+</ion-content>

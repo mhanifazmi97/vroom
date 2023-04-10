@@ -1,0 +1,57 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Vehicle</ion-title>
+		<ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+	<form [formGroup]="form" class="ion-padding-bottom ion-padding-top" *ngIf="!load">
+		<ion-card>
+			<ion-card-header>
+				<ion-card-title>Vehicle Information</ion-card-title>
+			</ion-card-header>
+			<ion-card-content>
+				<ion-list>
+					<ion-item>
+						<ion-label position="floating">Number Plate</ion-label>
+						<ion-input type="text" formControlName="car_plate"></ion-input>
+					</ion-item>
+					<div *ngFor="let error of errorMessages.car_plate">
+						<ng-container *ngIf="car_plate.hasError(error.type) && (car_plate.dirty || car_plate.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label position="floating">Vehicle Transmission</ion-label>
+						<ion-select formControlName="vehicle_transmission">
+							<ion-select-option value="auto">Automatic</ion-select-option>
+							<ion-select-option value="manual">Manual</ion-select-option>
+						</ion-select>
+					</ion-item>
+					<div *ngFor="let error of errorMessages.vehicle_transmission">
+						<ng-container *ngIf="vehicle_transmission.hasError(error.type) && (vehicle_transmission.dirty || vehicle_transmission.touched)">
+							<small class="error-message">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+								<span>{{error.message}}</span>
+							</small>
+						</ng-container>
+					</div>
+				</ion-list>
+			</ion-card-content>
+		</ion-card>
+	</form>
+	<div class="ion-text-center ion-padding-top" *ngIf="!load">
+		<ion-button *ngIf="!load" color="gold" expand="block" (click)="save()" [disabled]="!form.valid">Save Changes</ion-button>
+	</div>
+	<div id="container" *ngIf="load">
+		<ion-spinner name="circles"></ion-spinner>
+		<p>Saving, please wait...</p>
+	</div>
+</ion-content>

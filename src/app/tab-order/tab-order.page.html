@@ -1,0 +1,110 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-img
+            slot="start"
+            src="assets/logo.png"
+            style="height: 50px; margin-left: 20px"
+        ></ion-img>
+        <ion-buttons slot="end">
+            <ion-button
+                color="primary"
+                routerLink="/order-history"
+                routerDirection="forward"
+            >
+                <div class="header-ico">
+                    <div class="badge-silver float-right">
+                        <div class="ico-history"></div>
+                        <span class="badge-silver-text" style="font-size: 10px"
+                            >Booking History</span
+                        >
+                    </div>
+                </div>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<div
+    class="alert"
+    style="display: inline-block"
+    *ngIf="!globalVars.profile.email_verified"
+>
+    <ion-icon name="alert-circle" color="warning"></ion-icon
+    ><span class="p-14"> Verify your email account.</span>
+    <span
+        class="p-14"
+        style="color: green; font-weight: 900"
+        (click)="sendVerificationEmail()"
+        >Send Verification Email</span
+    >
+</div>
+<ion-content class="ion-padding">
+    <div
+        id="container"
+        *ngIf="globalVars.loading || (!globalVars.loading && globalVars.nodata)"
+    >
+        <ion-spinner name="bubbles" *ngIf="globalVars.loading"></ion-spinner
+        ><br />
+        <strong *ngIf="globalVars.loading">Loading</strong>
+        <strong *ngIf="!globalVars.loading && globalVars.nodata"
+            >You do not have any orders.</strong
+        >
+    </div>
+    <div *ngIf="!globalVars.loading">
+        <ion-grid>
+            <ng-container *ngFor="let item of globalVars.items">
+                <ion-row
+                    [routerLink]="'/order-processing/' + item.tracking_number"
+                    routerDirection="forward"
+                    style="
+                        padding-bottom: 10px;
+                        padding-top: 10px;
+                        border-bottom: 1px solid lightgrey;
+                    "
+                >
+                    <ion-col size="3" class="ion-text-center">
+                        <img
+                            [src]="item.icon"
+                            *ngIf="item.icon"
+                            class="icon-img"
+                        />
+                        <p class="p-16 mt-10" *ngIf="item.charge_amount">
+                            Fee:<br />${{item.charge_amount | number : '1.2-2'}}
+                        </p>
+                    </ion-col>
+                    <ion-col size="9">
+                        <p class="title-16 mb-5">{{item.date}}</p>
+                        <p class="p-14">Pickup Address:</p>
+                        <p class="p-12 f-s mb-5">{{item.pickup_address}}</p>
+                        <ng-container
+                            *ngFor="let dropoff of item.recipients; let i = index"
+                        >
+                            <p class="p-14 mb-5">
+                                Dropoff Address<span
+                                    *ngIf="item.is_stack_orders"
+                                >
+                                    {{i+1}}</span
+                                >:
+                            </p>
+                            <p class="p-12 f-s">
+                                {{dropoff.recipient_address}}
+                            </p>
+                        </ng-container>
+                        <div class="status-yellow p-14 mt-10">
+                            {{item.status}}
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+        </ion-grid>
+    </div>
+    <ion-infinite-scroll
+        threshold="100px"
+        (ionInfinite)="globalVars.loadOrders(this)"
+    >
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data..."
+        >
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

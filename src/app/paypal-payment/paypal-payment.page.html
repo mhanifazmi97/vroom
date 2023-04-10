@@ -1,0 +1,26 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Your Order</ion-title>
+		<ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<p style="font-weight: bold;">Amount Payable:</p>
+				<p style="font-weight: bold;font-size: 24px;margin-top:10px">${{amount}}</p>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<div id="paypal-button"></div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

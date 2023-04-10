@@ -1,0 +1,194 @@
+<ion-header>
+    <ion-toolbar>
+		<ion-img src="assets/express_valet.png" style="width:40%;"></ion-img>
+        <ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="menu"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="main-wrap-full">
+	<div class="action-area main-action ion-padding" *ngIf="step==1">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="action-box">
+						
+						<div class="action-box-title mb-30">
+							<div class="action-box-title-text">
+								<h3>Valet Booking</h3>
+							</div>
+						</div>
+
+						<div class="action-input-box">
+							<div class="action-in-wrap pickup-field">
+								<ion-row>
+									<ion-col size="2">
+										<ion-icon name="alarm-outline" style="zoom:1.5;" color="gold"></ion-icon>
+									</ion-col>
+									<ion-col size="10">
+										<ion-datetime [(ngModel)]="globalVars.pickup_datetime" class="ion-no-padding" style="font-size: 13px;" displayFormat="DDD, D MMM YYYY h:mm A" pickerFormat="D MMM YYYY HH:mm"  [min]="minTime" [max]="maxTime" minuteValues="0,15,30,45"></ion-datetime>
+									</ion-col>
+								</ion-row>
+							</div>
+							<div class="action-in-wrap pickup-field" (click)="set('sender', '')">
+								<div class="action-address-border">
+									<ion-row>
+										<ion-col size="2">
+											<div class="ico-pickup"></div>
+										</ion-col>
+										<ion-col size="10">
+											<p class="p-14">Pick Up Location</p>
+											<p class="p-12 f-s">{{globalVars.sender_location_text}}</p>
+										</ion-col>
+									</ion-row>
+								</div>
+							</div>
+							<ng-container *ngFor="let dropoff of globalVars.dropoff_points; let i = index">
+								<div class="action-in-wrap dropoff-field">
+									<ion-row>
+										<ion-col size="2" (click)="set('receiver', dropoff)">
+											<div class="ico-dropoff"></div>
+										</ion-col>
+										<ion-col size="8" (click)="set('receiver', dropoff)">
+											<p class="p-14">Drop Off Location <span *ngIf="globalVars.dropoff_points.length > 1">{{i+1}}</span></p>
+											<p class="p-12 f-s">{{dropoff.location_text}}</p>
+										</ion-col>
+										<ion-col size="2" class="ion-text-end">
+											<ion-icon name="close-outline" color="danger" (click)="removePoint(dropoff)"></ion-icon>
+										</ion-col>
+									</ion-row>
+								</div>
+							</ng-container>
+							<ion-grid class="ion-no-padding">
+								<ion-row class="ion-no-padding">
+									<ion-col size="12" class="ion-no-padding ion-text-center">
+										<ion-button *ngIf="globalVars.dropoff_points.length < 5" fill="clear" size="small" color="gold" (click)="addPoint()" class="ion-no-padding">+ Add Stop</ion-button>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</div>
+						<div class="button-area">
+							<ion-button expand="block" color="gold" (click)="summary()" [disabled]="globalVars.sender_postal_code=='' || !allFilled || processing">Next</ion-button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- SEARCH ADDRESS -->
+	<div class="action-area pickup ion-padding" *ngIf="step==0">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="action-box">
+						<div class="action-box-title mb-20">
+							<div class="action-title-back back-main-pickup" (click)="back(1)">
+								<div class="ico-back-inside"></div>
+							</div>
+							<div class="action-box-title-text">
+								<h3>Search Location</h3>
+							</div>
+						</div>
+						<div>
+							<ion-searchbar [(ngModel)]="search" placeholder="Input postal code here" (ionChange)="searchAddress()"></ion-searchbar>
+						</div>
+						<div class="action-noborder">
+							<ion-list>
+								<ion-item *ngFor="let item of addressList" (click)="selectAddress(item)" class="ion-text-wrap">
+									<ion-grid>
+										<ion-row>
+											<ion-col size="2">
+												<ion-icon name="location"></ion-icon>
+											</ion-col>
+											<ion-col size="10">
+												<p class="p-14">{{item.building}}</p>
+												<p class="p-12 f-s">{{item.address}}</p>
+											</ion-col>
+										</ion-row>
+									</ion-grid>
+								</ion-item>
+							</ion-list>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Select vehicles -->
+	<div class="action-area select-vehicle ion-padding" *ngIf="step==5">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="action-box">
+						
+						<div class="action-box-title mb-20">
+							<div class="action-box-title-text">
+								<h3>Vehicle Information</h3>
+							</div>
+						</div>
+						<div class="select-vec-wrap">
+							<ion-item lines="none">
+								<ion-label position="stacked">Number Plate</ion-label>
+								<ion-input [(ngModel)]="globalVars.car_plate"></ion-input>
+							</ion-item>
+							<ion-item lines="none">
+								<ion-label position="stacked">Vehicle Transmission</ion-label>
+								<ion-select [(ngModel)]="globalVars.vehicle_transmission">
+									<ion-select-option value="auto">Automatic</ion-select-option>
+									<ion-select-option value="manual">Manual</ion-select-option>
+								</ion-select>
+							</ion-item>
+						</div>
+						<div class="button-area mt-0">
+							<ion-button expand="block" color="gold" (click)="setVehicleInformation()" [disabled]="globalVars.car_plate=='' || globalVars.vehicle_transmission==''">Next</ion-button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+    <!-- Contact Information -->
+	<div class="action-area contact-info ion-padding" *ngIf="step==4">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="action-box">
+						<div class="action-box-title mb-20">
+							<div class="action-title-back back-main-contact" (click)="back(1)" *ngIf="!processing">
+								<div class="ico-back-inside"></div>
+							</div>
+							<div class="action-box-title-text">
+								<h3>Contact Information</h3>
+							</div>
+						</div>
+						<div class="action-noborder">
+							 <div class="form-group">
+                                <ion-label>Full Name</ion-label>
+							    <input type="text" class="form-control" [(ngModel)]="globalVars.sender_name">
+							  </div>
+
+							  <div class="form-group">
+                                <ion-label>Phone number</ion-label>
+							    <input type="text" class="form-control" [(ngModel)]="globalVars.sender_contact" maxlength="8">
+							  </div>
+						</div>
+
+						<div class="button-area mt-0">
+							<ion-button expand="block" color="gold" (click)="set('vehicles', '')" [disabled]="globalVars.sender_contact=='' || globalVars.sender_contact.length!=8 || isInteger(globalVars.sender_contact) || processing">Next</ion-button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</div>
+</ion-content>

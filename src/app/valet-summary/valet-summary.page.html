@@ -1,0 +1,232 @@
+<ion-header>
+    <ion-toolbar>
+		<ion-title>Booking Summary</ion-title>
+        <ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding back-grey">
+    <div class="action-box">		
+			<div class="action-input-box">
+				<div class="action-in-wrap pickup-field">
+					<ion-row>
+						<ion-col size="2">
+							<div class="ico-pickup"></div>
+						</ion-col>
+						<ion-col size="10">
+							<p class="p-14">Pick Up Location</p>
+							<p class="p-12 f-s">{{globalVars.sender_location_text}}</p>
+						</ion-col>
+					</ion-row>
+				</div>
+				<ng-container *ngFor="let dropoff of globalVars.dropoff_points; let i = index">
+					<div class="action-in-wrap dropoff-field">
+						<ion-row>
+							<ion-col size="2">
+								<div class="ico-dropoff"></div>
+							</ion-col>
+							<ion-col size="10">
+								<p class="p-14">Drop Off Location <span *ngIf="globalVars.dropoff_points.length > 1">{{i+1}}</span></p>
+								<p class="p-12 f-s">{{dropoff.location_text}}</p>
+							</ion-col>
+						</ion-row>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+		
+		<div class="reinfo-box pb-0">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-title">
+							<p class="p-16 fw-bold">Vehicle Information</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-box-list">
+							<ion-row class="ion-no-padding">
+								<ion-col size="5" class="ion-no-padding">
+									<p class="p-14">Number Plate</p>
+								</ion-col>
+								<ion-col size="6" class="ion-text-end ion-no-padding">
+									<ion-input #car_plate class="p-14 ion-no-padding" [(ngModel)]="globalVars.car_plate"></ion-input>
+								</ion-col>
+								<ion-col size="1" class="ion-text-end ion-no-padding">
+									<ion-icon name="pencil" class="p-14" (click)="car_plate.setFocus()"></ion-icon>
+								</ion-col>
+							</ion-row>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="reinfo-box-list">
+							<div class="refinfo-con">
+								<p class="p-14">Vehicle Transmission</p>
+							</div>
+							<div class="refinfo-con ion-text-end">
+								<ion-select class="p-14 ion-no-padding" [(ngModel)]="globalVars.vehicle_transmission">
+									<ion-select-option value="auto">Automatic</ion-select-option>
+									<ion-select-option value="manual">Manual</ion-select-option>
+								</ion-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="reinfo-box pb-0">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-title">
+							<p class="p-16 fw-bold">Contact Details</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-box-list">
+							<ion-row class="ion-no-padding">
+								<ion-col size="5" class="ion-no-padding">
+									<p class="p-14">Name</p>
+								</ion-col>
+								<ion-col size="6" class="ion-text-end ion-no-padding">
+									<ion-input #sender_name class="p-14 ion-no-padding" [(ngModel)]="globalVars.sender_name"></ion-input>
+								</ion-col>
+								<ion-col size="1" class="ion-text-end ion-no-padding">
+									<ion-icon name="pencil" class="p-14" (click)="sender_name.setFocus()"></ion-icon>
+								</ion-col>
+							</ion-row>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="reinfo-box-list">
+							<ion-row class="ion-no-padding">
+								<ion-col size="5" class="ion-no-padding">
+									<p class="p-14">Phone Number</p>
+								</ion-col>
+								<ion-col size="6" class="ion-text-end ion-no-padding">
+									<ion-input #sender_contact class="p-14 ion-no-padding" [(ngModel)]="globalVars.sender_contact" maxlength="8"></ion-input>
+								</ion-col>
+								<ion-col size="1" class="ion-text-end ion-no-padding">
+									<ion-icon name="pencil" class="p-14" (click)="sender_contact.setFocus()"></ion-icon>
+								</ion-col>
+							</ion-row>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="reinfo-box pb-0" *ngIf="globalVars.distance">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-title">
+							<p class="p-16 fw-bold">Total Distance</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-box-list">
+							<p class="p-14">{{globalVars.distance}} KM</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="reinfo-box pb-0">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-title">
+							<p class="p-16 fw-bold">Remarks To Driver</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<ion-textarea [(ngModel)]="remarks" rows="3" placeholder="Enter any notes here..."></ion-textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="reinfo-box pb-0 " id="tabs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="reinfo-title">
+							<p class="p-16 fw-bold">Mode Of Payment</p>
+						</div>
+					</div>
+				</div>
+				<ion-segment scrollable [(ngModel)]="selectedView">
+					<ion-segment-button value="cash">
+						<ion-label color="gold">Cash</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="wallet" [disabled]="globalVars.credit<globalVars.fee">
+						<ion-label color="gold">My Wallet</ion-label>
+					</ion-segment-button>
+				</ion-segment>				
+				<div class="row" [ngSwitch]="selectedView">
+					<div class="col-12">
+						<div class="tab-content" id="pills-tabContent">
+						  
+						  <div *ngSwitchCase="'cash'">
+						  	<div class="row">
+								<div class="col-12">
+									<div class="reinfo-box-list">
+										<div class="refinfo-con">
+											<p class="p-16 fw-bold">Total</p>
+										</div>
+										<div class="refinfo-con ion-text-end">
+											<p class="p-16 fw-bold">${{globalVars.fee | number : '1.2-2'}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						  </div>
+						  
+						  <div *ngSwitchCase="'wallet'">
+						  	<div class="my-wallet-box">
+						  		<div class="my-wallet-text">
+						  			<p class="p-14 f-w mb-0 fc-gold">My Wallet</p>
+									<p class="p-25 f-w fc-gold">${{globalVars.credit | number : '1.2-2'}}</p>
+						  		</div>
+						  	</div>
+
+						  	<div class="row">
+								<div class="col-12">
+									<div class="reinfo-box-list">
+										<div class="refinfo-con">
+											<p class="p-16 fw-bold">Total</p>
+										</div>
+										<div class="refinfo-con ion-text-end">
+											<p class="p-16 fw-bold">${{globalVars.fee | number : '1.2-2'}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="reinfo-box">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<ion-button color="gold" expand="block" (click)="submitOrder()" [disabled]="globalVars.sender_name=='' || globalVars.sender_contact=='' || globalVars.sender_contact.length!=8 || isInteger(globalVars.sender_contact) || globalVars.car_plate==''">Book Valet ${{globalVars.fee | number : '1.2-2'}}</ion-button>
+					</div>
+				</div>
+			</div>
+		</div>
+</ion-content>

@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Transactions</ion-title>
+		<ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div id="container" *ngIf="loading || (!loading && nodata)">
+		<ion-spinner name="bubbles" *ngIf="loading"></ion-spinner><br/>
+		<strong *ngIf="loading">Loading</strong>
+        <strong *ngIf="!loading && nodata">You do not have any transactions.</strong>
+	</div>
+    <div *ngIf="!loading">
+		<ion-grid>
+			<ng-container *ngFor="let item of items">
+				<ion-row>
+					
+					<ion-col size="8">
+						<p class="title-20">{{item.date}}</p>
+						<p class="p-16 mb-5">{{item.description}}</p>
+					</ion-col>
+					<ion-col size="3">
+						<p class="title-20" style="color:{{item.color}};">${{item.amount}}</p>
+					</ion-col>
+				</ion-row>
+			</ng-container>
+		</ion-grid>
+	</div>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadTransactions()">
+		<ion-infinite-scroll-content
+			loadingSpinner="bubbles"
+			loadingText="Loading more data...">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

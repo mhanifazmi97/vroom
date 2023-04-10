@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Booking History</ion-title>
+        <ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div id="container" *ngIf="loading || (!loading && nodata)">
+		<ion-spinner name="bubbles" *ngIf="loading"></ion-spinner><br/>
+		<strong *ngIf="loading">Loading</strong>
+        <strong *ngIf="!loading && nodata">You do not have any orders.</strong>
+	</div>
+    <div *ngIf="!loading">
+		<ion-grid>
+			<ng-container *ngFor="let item of items">
+				<ion-row (click)="details(item)" style="padding-bottom:10px;padding-top:10px;border-bottom: 1px solid  lightgrey;">
+					<ion-col size="3" class="ion-text-center">
+						<img [src]="item.icon" *ngIf="item.icon" src="assets/imgs/logo.png" width="70%" />
+						<p class="p-16 mt-10" *ngIf="item.charge_amount">Fee:<br/>${{item.charge_amount | number : '1.2-2'}}</p>
+					</ion-col>
+					<ion-col size="8">
+						<p class="title-16 mb-5">{{item.date}}</p>
+						<p class="p-14">Pickup Address:</p>
+						<p class="p-12 f-s mb-5">{{item.pickup_address}}</p>
+						<ng-container *ngFor="let dropoff of item.recipients; let i = index">
+							<p class="p-14 mb-5">Dropoff Address<span *ngIf="item.is_stack_orders"> {{i+1}}</span>:</p>
+							<p class="p-12 f-s">{{dropoff.recipient_address}}</p>
+						</ng-container>
+						<div class="status-{{item.status=='Cancelled'?'red':'green'}} p-14 mt-10">
+							{{item.status}}
+						</div>
+					</ion-col>
+				</ion-row>
+			</ng-container>
+		</ion-grid>
+	</div>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadOrders()">
+		<ion-infinite-scroll-content
+			loadingSpinner="bubbles"
+			loadingText="Loading more data...">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

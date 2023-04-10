@@ -1,0 +1,58 @@
+.acc-pp-box
+{
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 0 15px 0;
+}
+.wallet-box
+{
+    padding: 15px;
+    background-color: #1e679e;
+    border: 1px solid #1e679e;
+    border-radius: 5px;
+    color: #fff;
+}
+.mywallet-box
+{
+	display: inline-block;
+}
+.mywallet-action
+{
+	display: inline-block;
+	float: right;
+	text-align: right;
+}
+.mywallet-action-box
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+	text-align: center;
+}
+.acc-ico-list
+{
+	vertical-align: middle;
+	display: inline-block;
+	margin-right: 10px;
+}
+.acc-text-list
+{
+	vertical-align: middle;
+	display: inline-block;
+}
+.acc-arrow-list
+{
+	vertical-align: middle;
+	display: inline-block;
+	float: right;
+	margin-top: 10px;
+}
+.acc-signout
+{
+	padding: 15px;
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #1e679e;
+	font-weight: 700;
+}

@@ -1,0 +1,60 @@
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.banner-home{
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.home-content{
+    margin-top: 30px;
+    width: 100%;
+}
+
+.section-tittle{
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.service-box{
+    width: 100%;
+    background-color: #1c67a0;
+    border: 1px solid #1c67a0;
+    color:white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.service-ico-box{
+    width: 20%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.service-text{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    width: 65%;
+}
+
+.service-ico{
+    position: absolute;
+    right: 20px;
+    top: 50px;
+}
+.service-ico-box .service-text{
+    vertical-align: middle !important;
+}
+
+@media (max-width: 767px){   
+}
+
+@media (min-width: 768px) and (max-width: 1219px){ 
+}
+
+

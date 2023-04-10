@@ -1,0 +1,19 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Top Up</ion-title>
+		<ion-buttons slot="start">
+			<ion-button color="primary">
+				<ion-back-button text="" icon="arrow-back"></ion-back-button>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<ion-item>
+		<ion-label position="stacked">Enter your preferred amount (SGD)</ion-label>
+		<ion-input type="number" [(ngModel)]="globalVars.top_up_amount"></ion-input>
+	</ion-item>
+	<br/>
+	<ion-button color="gold" expand="block" (click)="topup()" [disabled]="globalVars.top_up_amount < 5">Top Up Credit</ion-button>
+</ion-content>

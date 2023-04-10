@@ -1,0 +1,29 @@
+.logo{
+	margin:25px 25px 25px 25px;
+	width: 80%;
+	max-width: 400px;
+}
+
+
+ion-input {
+    --background: white;
+    --padding-start: 5px;
+    --padding-end: 5px;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+	font-size: 0.9rem;
+}
+
+ion-item {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+	--inner-padding-end: 0px;
+}
+
+.rounded{
+	border: solid 1px rgba(0, 0, 0, 0.15);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}

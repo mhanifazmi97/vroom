@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row
+    class="ion-align-items-center ion-padding-bottom ion-justify-content-center"
+  >
+    <div>
+      <ion-icon
+        (click)="rateService(1)"
+        size="large"
+        name="star"
+        [ngClass]="rate >= 1 ? 'fc-gold' : ''"
+      ></ion-icon>
+      <ion-icon
+        (click)="rateService(2)"
+        size="large"
+        name="star"
+        [ngClass]="rate >= 2 ? 'fc-gold' : ''"
+      ></ion-icon>
+      <ion-icon
+        (click)="rateService(3)"
+        size="large"
+        name="star"
+        [ngClass]="rate >= 3 ? 'fc-gold' : ''"
+      ></ion-icon>
+      <ion-icon
+        (click)="rateService(4)"
+        size="large"
+        name="star"
+        [ngClass]="rate >= 4 ? 'fc-gold' : ''"
+      ></ion-icon>
+      <ion-icon
+        (click)="rateService(5)"
+        size="large"
+        name="star"
+        [ngClass]="rate >= 5 ? 'fc-gold' : ''"
+      ></ion-icon>
+    </div>
+  </ion-row>
+  <ion-row *ngIf="rate" class="ion-justify-content-center ion-padding-bottom">
+    <p *ngIf="rate === 5">Perfect</p>
+    <p *ngIf="rate >=3 && rate <=4">Good</p>
+    <p *ngIf="rate >= 1 && rate <= 2">Poor</p>
+  </ion-row>
+  <ion-row>
+    <ion-label>Great service? Consider Giving a tip?</ion-label>
+  </ion-row>
+  <ion-row class="ion-justify-content-between">
+    <div
+      [ngClass]="checkSelectedTip(1) ? 'box-selected' : 'box' "
+      (click)="tipService(1)"
+    >
+      + S$ 1.00
+    </div>
+    <div
+      class="box"
+      [ngClass]="checkSelectedTip(3) ? 'box-selected' : 'box' "
+      (click)="tipService(3)"
+    >
+      + S$ 3.00
+    </div>
+    <div
+      class="box"
+      [ngClass]="checkSelectedTip(5)? 'box-selected' : 'box' "
+      (click)="tipService(5)"
+    >
+      + S$ 5.00
+    </div>
+  </ion-row>
+  <ion-row
+    ><ion-label>What did you like about the {{order_type}}?</ion-label></ion-row
+  >
+  <div>
+    <ion-chip
+      *ngFor="let tag of tags"
+      (click)="feedbackTags(tag)"
+      [color]="checkTagExist(tag)"
+      >{{tag}}</ion-chip
+    >
+  </div>
+  <ion-label> Your Feedback </ion-label>
+  <ion-textarea
+    [(ngModel)]=" details"
+    style="border: 1px solid lightgrey; border-radius: 5px"
+  ></ion-textarea>
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button
+    style="--background: green"
+    (click)="submitFeedback()"
+    expand="block"
+    >Submit</ion-button
+  >
+</ion-footer>

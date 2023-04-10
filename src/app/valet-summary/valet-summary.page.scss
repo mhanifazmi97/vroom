@@ -1,0 +1,163 @@
+ion-textarea{
+	border: solid 1px rgba(0, 0, 0, 0.15);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin-top: 10px;
+	padding: 0px 10px 0px 10px !important;
+}
+
+.back-home-icon
+{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	z-index: 99999;
+}
+.action-area
+{
+	width: 100%;
+	position: absolute;
+	bottom: 20px;
+}
+.action-box
+{
+	width: 100%;
+	background-color: #fff;
+	border: 1px solid #fff;
+}
+.action-title-back
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.action-box-title
+{
+	width: 100%;
+}
+.action-box-title-text
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+.action-box-title-schedule
+{
+	display: inline-block;
+	vertical-align: middle;
+	float: right;
+}
+.action-input-box
+{
+	width: 100%;
+	border: #F2F2F2 1px solid;
+	padding: 10px 10px 10px 10px;
+	border-radius: 5px;
+}
+.action-in-wrap
+{
+	width: 100%;
+
+}
+.action-input-icon
+{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+
+}
+.action-input-text
+{
+	width: 80%;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+}
+.action-address-border
+{
+	padding-bottom: 10px;
+	border-bottom: 1px #F2F2F2 solid;
+	margin-bottom: 10px;
+}
+.reinfo-box
+{
+	width: 100%;
+	margin-top: 10px;
+	background-color: #fff;
+	padding: 15px 0;
+}
+.reinfo-box-list
+{	
+	width: 100%;
+	border-top: 1px solid #F2F2F2;
+	padding: 5px 0;
+}
+.refinfo-con
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 49%;
+}
+.selected-vec-ico
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.selected-vec-type
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+.tab-payment {
+    margin: 0;
+    padding: 0;
+    margin: auto auto;
+    max-width: 450px;
+    
+    text-align: center;
+}
+.reinfo-top-noborder
+{
+	border-top: none;
+}
+.credit-card-box
+{
+	width: 100%;
+	padding: 15px 20px;
+	border: #F2F2F2 1px solid;
+	border-radius: 5px;
+	background-color: #fff;
+	margin: 10px 0 15px 0;
+}
+.credit-card-ico
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.credit-card-text
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+.my-wallet-box
+{
+	width: 100%;
+	padding: 15px 20px;
+	border: #F2F2F2 1px solid;
+	border-radius: 5px;
+	background-color: #fff;
+	margin: 10px 0 15px 0;
+}
+.my-wallet-text
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+.my-wallet-ico
+{
+	display: inline-block;
+	vertical-align: middle;
+	float: right;
+	margin-top: 15px;
+}

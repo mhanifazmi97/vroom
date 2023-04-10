@@ -1,0 +1,35 @@
+<ion-content>
+  <div class="banner-home">
+    <img src="assets/banner-home.svg" class="img-fluid" />
+  </div>
+  <ion-grid class="ion-padding">
+    <ion-row class="ion-no-padding">
+      <ion-col size="12">
+        <div class="section-tittle">
+          <h1>Hi {{globalVars.profile_name}}</h1>
+          <p class="p-16 fc-black-p">How can we help?</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="12" class="ion-no-padding">
+        <div class="service-box" routerLink="/parcel" routerDirection="forward">
+          <div class="service-ico-box">
+            <div class="ico-parcel"></div>
+          </div>
+          <div class="service-text">
+            <p class="title-16">Express Delivery</p>
+            <p class="p-12">
+              Provides islandwide courier services to send items from one point
+              to another.
+            </p>
+          </div>
+          <div class="service-ico ion-text-end">
+            <div class="ico-arrow-right"></div>
+          </div>
+        </div>
+      </ion-col>
+     
+    </ion-row>
+  </ion-grid>
+</ion-content>

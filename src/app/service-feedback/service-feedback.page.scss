@@ -1,0 +1,19 @@
+.chip-selected {
+  --background: green;
+  --color: white;
+}
+
+.box {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+  color: grey;
+}
+
+.box-selected {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+  background: green;
+  color: white;
+}
